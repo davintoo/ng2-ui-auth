@@ -30,9 +30,7 @@ export {ConfigService, CustomConfig} from './config.service';
     imports: [HttpModule]
 })
 export class Ng2UiAuthModule {
-    static forRoot(config: Type<CustomConfig>, httpProvider: any = {
-        provide: JwtHttp, useClass: JwtHttp, deps: [Http, SharedService, ConfigService]
-    }): ModuleWithProviders {
+    static forRoot(config: Type<CustomConfig>): ModuleWithProviders {
         return {
             ngModule: Ng2UiAuthModule,
             providers: [
@@ -40,7 +38,7 @@ export class Ng2UiAuthModule {
                 {provide: ConfigService, useClass: ConfigService, deps: [CustomConfig] },
                 {provide: StorageService, useClass: StorageService, deps: [ConfigService]},
                 {provide: SharedService,  useClass: SharedService, deps: [StorageService, ConfigService]},
-                httpProvider,
+                {provide: JwtHttp,  useClass: JwtHttp, deps: [Http, SharedService, ConfigService]} ,
                 {provide: OauthService,  useClass: OauthService, deps: [JwtHttp, Injector, SharedService, ConfigService]} ,
                 {provide: PopupService,  useClass: PopupService, deps: [ConfigService]},
                 {provide: Oauth1Service,  useClass: Oauth1Service, deps: [JwtHttp, PopupService, ConfigService]} ,

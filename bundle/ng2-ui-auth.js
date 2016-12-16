@@ -918,10 +918,7 @@ var AuthService = (function () {
 var Ng2UiAuthModule = (function () {
     function Ng2UiAuthModule() {
     }
-    Ng2UiAuthModule.forRoot = function (config, httpProvider) {
-        if (httpProvider === void 0) { httpProvider = {
-            provide: JwtHttp, useClass: JwtHttp, deps: [_angular_http.Http, SharedService, ConfigService]
-        }; }
+    Ng2UiAuthModule.forRoot = function (config) {
         return {
             ngModule: Ng2UiAuthModule,
             providers: [
@@ -929,7 +926,7 @@ var Ng2UiAuthModule = (function () {
                 { provide: ConfigService, useClass: ConfigService, deps: [CustomConfig] },
                 { provide: StorageService, useClass: StorageService, deps: [ConfigService] },
                 { provide: SharedService, useClass: SharedService, deps: [StorageService, ConfigService] },
-                httpProvider,
+                { provide: JwtHttp, useClass: JwtHttp, deps: [_angular_http.Http, SharedService, ConfigService] },
                 { provide: OauthService, useClass: OauthService, deps: [JwtHttp, _angular_core.Injector, SharedService, ConfigService] },
                 { provide: PopupService, useClass: PopupService, deps: [ConfigService] },
                 { provide: Oauth1Service, useClass: Oauth1Service, deps: [JwtHttp, PopupService, ConfigService] },
